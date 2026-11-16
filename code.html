@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Margin — Profit planner</title>
+	<style>
+		:root{color-scheme:dark;--bg:#101814;--panel:#19231e;--line:#344139;--text:#f4f6f1;--muted:#a9b5ad;--accent:#c8f27a;--red:#ff9588}
+		*{box-sizing:border-box}body{margin:0;min-height:100vh;background:radial-gradient(ellipse at 15% 0,#29402e 0,transparent 36%),var(--bg);color:var(--text);font:16px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif}.wrap{width:min(100% - 32px,960px);margin:auto}header{height:72px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #ffffff14}.brand{font-weight:800;font-size:20px;letter-spacing:-.04em}.brand span{color:var(--accent)}header small{color:var(--muted)}main{padding:48px 0 56px}.intro{max-width:640px;margin-bottom:28px}.eyebrow{color:var(--accent);font-size:11px;font-weight:800;letter-spacing:.13em;text-transform:uppercase}.intro h1{font-size:clamp(34px,6vw,52px);line-height:1.04;letter-spacing:-.055em;margin:10px 0}.intro p{color:var(--muted);margin:0}.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:24px}.card h2{margin:0;font-size:18px}.hint{margin:4px 0 20px;color:var(--muted);font-size:13px}.fields{display:grid;grid-template-columns:1fr 1fr;gap:15px 12px}.field label{display:block;font-size:12px;font-weight:700;margin-bottom:6px}.field small{display:block;color:var(--muted);font-size:11px;margin-top:5px}.input{display:flex;align-items:center;border:1px solid #46544b;border-radius:9px;background:#111a15;padding:0 10px}.input:focus-within{border-color:var(--accent)}.input span{color:var(--muted)}input{width:100%;padding:11px 0 11px 7px;background:transparent;border:0;outline:0;color:var(--text);font:inherit;font-size:15px}.actions{display:flex;gap:9px;margin-top:20px}.btn{border:0;border-radius:9px;padding:11px 15px;font:700 13px system-ui;cursor:pointer}.primary{background:var(--accent);color:#182116}.secondary{background:#2b3830;color:var(--text)}.result{display:flex;flex-direction:column}.result-head{display:flex;justify-content:space-between;gap:8px}.badge{height:max-content;padding:4px 8px;border-radius:20px;background:#29392b;color:var(--accent);font-size:10px;font-weight:800}.amount{font-size:clamp(40px,6vw,54px);font-weight:800;letter-spacing:-.06em;line-height:1;margin:28px 0 4px}.amount.negative{color:var(--red)}.muted{color:var(--muted);font-size:13px}.track{height:7px;background:#303c34;border-radius:9px;margin:19px 0 7px;overflow:hidden}.track span{display:block;height:100%;width:0;background:var(--accent);transition:width .25s}.split{display:flex;justify-content:space-between;color:var(--muted);font-size:11px}.stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:22px 0}.stat{padding:12px;background:#111a15;border-radius:10px}.stat small{display:block;color:var(--muted);font-size:11px}.stat strong{font-size:17px}.tip{padding:13px;background:#202d22;border:1px solid #405136;border-radius:10px;font-size:12px;color:#dce7dc}.tip b{color:var(--accent)}.disclaimer{border-top:1px solid var(--line);padding-top:14px;margin-top:auto;padding-top:16px;color:var(--muted);font-size:11px}.error{min-height:17px;color:var(--red);font-size:12px;margin-top:8px}footer{border-top:1px solid #ffffff14;padding:17px 0 24px;color:var(--muted);font-size:11px}
+		@media(max-width:680px){main{padding-top:35px}.grid{grid-template-columns:1fr}.card{padding:20px}}@media(max-width:390px){.fields{grid-template-columns:1fr}header small{font-size:11px}}
+	</style>
+</head>
+<body>
+	<header class="wrap"><div class="brand"><span>↗</span> margin</div><small>A simple business profit planner</small></header>
+	<main class="wrap">
+		<section class="intro"><div class="eyebrow">Plan before you invest</div><h1>Make the numbers<br>work for you.</h1><p>Estimate the monthly profit of a product or service. Adjust your assumptions and see what it takes to break even.</p></section>
+		<div class="grid">
+			<form class="card" id="planner" novalidate>
+				<h2>Your offer</h2><p class="hint">Use realistic estimates to get started.</p>
+				<div class="fields">
+					<div class="field"><label for="price">Price per sale (USD)</label><div class="input"><span>$</span><input id="price" type="number" min="0" step="0.01" value="49" inputmode="decimal"></div><small>What one customer pays</small></div>
+					<div class="field"><label for="sales">Sales per month</label><div class="input"><input id="sales" type="number" min="0" step="1" value="40" inputmode="numeric"></div><small>Your monthly sales goal</small></div>
+					<div class="field"><label for="cost">Cost per sale (USD)</label><div class="input"><span>$</span><input id="cost" type="number" min="0" step="0.01" value="12" inputmode="decimal"></div><small>Materials, fees, delivery</small></div>
+					<div class="field"><label for="fixed">Monthly overhead (USD)</label><div class="input"><span>$</span><input id="fixed" type="number" min="0" step="0.01" value="250" inputmode="decimal"></div><small>Tools, subscriptions, rent</small></div>
+				</div>
+				<div class="error" id="error" role="alert"></div><div class="actions"><button class="btn primary" type="submit">Calculate profit ↗</button><button class="btn secondary" type="reset">Reset</button></div>
+			</form>
+			<section class="card result" aria-live="polite">
+				<div class="result-head"><div><h2>Monthly estimate</h2><div class="hint" style="margin-bottom:0">Before taxes</div></div><span class="badge">PLANNING TOOL</span></div>
+				<div class="amount" id="profit">$1,230</div><div class="muted">Estimated monthly profit</div>
+				<div class="track" aria-label="Profit margin"><span id="bar"></span></div><div class="split"><span>Profit margin</span><strong id="margin">63.3%</strong></div>
+				<div class="stats"><div class="stat"><small>Monthly revenue</small><strong id="revenue">$1,960</strong></div><div class="stat"><small>Break-even sales</small><strong id="breakeven">7 units</strong></div></div>
+				<div class="tip" id="tip"><b>Next step:</b> Test your offer and price with potential customers before spending heavily.</div>
+				<div class="disclaimer"><strong>Estimates, not guaranteed earnings.</strong> Results depend on demand, taxes, and costs not included here.</div>
+			</section>
+		</div>
+	</main>
+	<footer class="wrap">This calculator is for planning purposes only and is not financial advice.</footer>
+	<script>
+		const form=document.getElementById('planner');
+		const fields=['price','sales','cost','fixed'].map(id=>document.getElementById(id));
+		const usd=n=>new Intl.NumberFormat('en-US',{style:'currency',currency:'USD',maximumFractionDigits:2}).format(n);
+		function calculate(event){
+			if(event)event.preventDefault();
+			const values=fields.map(input=>input.value.trim());
+			const error=document.getElementById('error');
+			if(values.some(value=>value===''||!Number.isFinite(Number(value))||Number(value)<0)){error.textContent='Enter a valid number of zero or more in each field.';return}
+			error.textContent='';
+			const [price,sales,cost,fixed]=values.map(Number);
+			const revenue=price*sales,profit=revenue-cost*sales-fixed,margin=revenue>0?profit/revenue*100:0;
+			const breakEven=price>cost?Math.ceil(fixed/(price-cost)):Infinity;
+			const profitEl=document.getElementById('profit');
+			profitEl.textContent=usd(profit);profitEl.classList.toggle('negative',profit<0);
+			document.getElementById('revenue').textContent=usd(revenue);
+			document.getElementById('margin').textContent=`${margin.toFixed(1)}%`;
+			document.getElementById('bar').style.width=`${Math.max(0,Math.min(100,margin))}%`;
+			document.getElementById('breakeven').textContent=Number.isFinite(breakEven)?`${breakEven} ${breakEven===1?'unit':'units'}`:'—';
+			document.getElementById('tip').innerHTML=profit<0?'<b>Next step:</b> This estimate is below break-even. Revisit costs and pricing, and validate customer demand.':margin<20?'<b>Next step:</b> Your margin is tight. Consider testing pricing or reducing per-sale costs.':'<b>Next step:</b> Test your offer and price with potential customers before spending heavily.';
+		}
+		form.addEventListener('submit',calculate);
+		form.addEventListener('reset',()=>setTimeout(calculate,0));
+		fields.forEach(input=>input.addEventListener('input',calculate));
+		calculate();
+	</script>
+</body>
+</html>
